@@ -14,7 +14,7 @@ public class MotorOpMode extends OpMode {
     }
     @Override
     public void loop(){
-        double motorSpeed = -gamepad1.left_stick_y/2 * gamepad1.left_trigger;
+        double motorSpeed = -gamepad1.left_stick_y;
         board.setMotorSpeed(motorSpeed);
         //board.setMotorSpeed(-gamepad1.left_trigger);
         //board.setMotorSpeed(gamepad1.right_trigger);
