@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class MotorTestBoard {
-    private DigitalChannel touchSensor;
     private DcMotor motor;
     private double ticksPerRotation;
 
