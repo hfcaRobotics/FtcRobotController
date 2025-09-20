@@ -25,10 +25,10 @@ public class MechanumDriveMechs {
         // This assumes we will have encoder cables hooked up
         // need to remove or comment out if we do not hook up the encoders
 
-        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       //frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Will have to mess with these setting to reverse the motors where needed
         // in order to make the Mechanum drive function properly
@@ -40,9 +40,9 @@ public class MechanumDriveMechs {
         imu = hwMap.get(IMU.class, "imu");
         // This needs to be changed to match the orientation on your robot
         RevHubOrientationOnRobot.LogoFacingDirection logoDirection =
-                RevHubOrientationOnRobot.LogoFacingDirection.UP;
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
         RevHubOrientationOnRobot.UsbFacingDirection usbDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+                RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
         RevHubOrientationOnRobot orientationOnRobot = new
                 RevHubOrientationOnRobot(logoDirection, usbDirection);

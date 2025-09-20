@@ -52,7 +52,7 @@ import org.firstinspires.ftc.teamcode.mechanism.MechanumDriveMechs;
  *
  */
 @TeleOp(name = "Robot: Field Relative Mecanum Drive", group = "Robot")
-@Disabled
+//@Disabled
 public class RobotTeleopMecanumFieldRelativeDrive_HFCA extends OpMode {
     MechanumDriveMechs board = new MechanumDriveMechs();
 
