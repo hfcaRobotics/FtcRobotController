@@ -54,7 +54,7 @@ public class MechanumDriveMechs {
     }
 
     public double getimuYaw(){
-        imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS)
+        return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
     }
     public void FrontLeftSpeed(double speed){
 
@@ -72,7 +72,7 @@ public class MechanumDriveMechs {
 
     public void BackRightSpeed(double speed){
 
-        backReftDrive.setPower(speed);
+        backRightDrive.setPower(speed);
     }
 
 }
