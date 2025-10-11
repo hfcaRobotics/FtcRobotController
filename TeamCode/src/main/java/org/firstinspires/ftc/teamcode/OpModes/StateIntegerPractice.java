@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.mechanism;
+package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.TestBench;
+import org.firstinspires.ftc.teamcode.mechanism.MechanumDriveMechs;
 
 @Autonomous
 public class StateIntegerPractice extends OpMode {
