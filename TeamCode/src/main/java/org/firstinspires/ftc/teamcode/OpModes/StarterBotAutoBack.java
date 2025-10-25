@@ -30,7 +30,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.OpModes;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 
@@ -62,9 +62,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * main robot "loop," continuously checking for conditions that allow us to move to the next step.
  */
 
-@Autonomous(name="StarterBotAuto", group="StarterBot")
+@Autonomous(name="StarterBotAutoBack", group="StarterBot")
 //@Disabled
-public class StarterBotAuto extends OpMode
+public class StarterBotAutoBack extends OpMode
 {
 
     final double FEED_TIME = 0.31; //The feeder servos run this long when a shot is requested.
@@ -152,7 +152,10 @@ public class StarterBotAuto extends OpMode
         LAUNCH,
         WAIT_FOR_LAUNCH,
         DRIVING_AWAY_FROM_GOAL,
+        DRIVING_TO_GOAL_PART_ONE,
+        DRIVING_TO_GOAL_PART_TWO,
         ROTATING,
+        ROTATING_AWAY,
         DRIVING_OFF_LINE,
         COMPLETE;
     }
@@ -182,7 +185,7 @@ public class StarterBotAuto extends OpMode
          * Later in our code, we will progress through the state machine by moving to other enum members.
          * We do the same for our launcher state machine, setting it to IDLE before we use it later.
          */
-        autonomousState = AutonomousState.LAUNCH;
+        autonomousState = AutonomousState.DRIVING_TO_GOAL_PART_ONE;
         launchState = LaunchState.IDLE;
 
 
@@ -335,6 +338,23 @@ public class StarterBotAuto extends OpMode
                 }
                 break;
 
+            case DRIVING_TO_GOAL_PART_ONE:
+                if(drive(DRIVE_SPEED, 92, DistanceUnit.INCH, 1)){
+                    leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    autonomousState = AutonomousState.ROTATING;
+                }
+                break;
+
+            case DRIVING_TO_GOAL_PART_TWO:
+                if(drive(DRIVE_SPEED, 50, DistanceUnit.INCH, 1)){
+                    leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    autonomousState = AutonomousState.LAUNCH;
+                }
+                break;
+
+
             case DRIVING_AWAY_FROM_GOAL:
                 /*
                  * This is another function that returns a boolean. This time we return "true" if
@@ -344,11 +364,11 @@ public class StarterBotAuto extends OpMode
                 if(drive(DRIVE_SPEED, -4, DistanceUnit.INCH, 1)){
                     leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    autonomousState = AutonomousState.ROTATING;
+                    autonomousState = AutonomousState.ROTATING_AWAY;
                 }
                 break;
 
-            case ROTATING:
+            case ROTATING_AWAY:
                 if(alliance == Alliance.RED){
                     robotRotationAngle = 60;
                 } else if (alliance == Alliance.BLUE){
@@ -359,6 +379,21 @@ public class StarterBotAuto extends OpMode
                     leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     autonomousState = AutonomousState.DRIVING_OFF_LINE;
+
+                }
+                break;
+
+            case ROTATING:
+                if(alliance == Alliance.RED){
+                    robotRotationAngle = -45;
+                } else if (alliance == Alliance.BLUE){
+                    robotRotationAngle = 45;
+                }
+
+                if(rotate(ROTATE_SPEED, robotRotationAngle, AngleUnit.DEGREES,1)){
+                    leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    autonomousState=AutonomousState.DRIVING_TO_GOAL_PART_TWO;
                 }
                 break;
 
