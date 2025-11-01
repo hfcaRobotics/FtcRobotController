@@ -83,23 +83,8 @@ public class RobotTeleopMecanumFieldRelativeDrive_HFCA extends OpMode {
     }
 
     // This routine drives the robot field relative
-    private void driveFieldRelative(double forward, double right, double rotate) {
-        // First, convert direction being asked to drive to polar coordinates
-        double theta = Math.atan2(forward, right);
-        double r = Math.hypot(right, forward);
-
-        // Second, rotate angle by the angle the robot is pointing
-        theta = AngleUnit.normalizeRadians(theta - board.getimuYaw());
-
-        // Third, convert back to cartesian
-        double newForward = r * Math.sin(theta);
-        double newRight = r * Math.cos(theta);
-
-        // Finally, call the drive method with robot relative forward and right amounts
-        drive(newForward, newRight, rotate);
-    }
-
     // Thanks to FTC16072 for sharing this code!!
+
     public void drive(double forward, double right, double rotate) {
         // This calculates the power needed for each wheel based on the amount of forward,
         // strafe right, and rotate
@@ -126,5 +111,20 @@ public class RobotTeleopMecanumFieldRelativeDrive_HFCA extends OpMode {
         board.FrontRightSpeed(maxSpeed * (frontRightPower / maxPower));
         board.BackLeftSpeed(maxSpeed * (backLeftPower / maxPower));
         board.BackRightSpeed(maxSpeed * (backRightPower / maxPower));
+    }
+    private void driveFieldRelative(double forward, double right, double rotate) {
+        // First, convert direction being asked to drive to polar coordinates
+        double theta = Math.atan2(forward, right);
+        double r = Math.hypot(right, forward);
+
+        // Second, rotate angle by the angle the robot is pointing
+        theta = AngleUnit.normalizeRadians(theta - board.getimuYaw());
+
+        // Third, convert back to cartesian
+        double newForward = r * Math.sin(theta);
+        double newRight = r * Math.cos(theta);
+
+        // Finally, call the drive method with robot relative forward and right amounts
+        drive(newForward, newRight, rotate);
     }
 }

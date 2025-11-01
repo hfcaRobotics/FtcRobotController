@@ -45,6 +45,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.teamcode.mechanism.MechanumDriveLauncherMechs;
 import org.firstinspires.ftc.teamcode.mechanism.MechanumDriveMechs;
 
 /*
@@ -62,11 +63,11 @@ import org.firstinspires.ftc.teamcode.mechanism.MechanumDriveMechs;
  * we will also need to adjust the "PIDF" coefficients with some that are a better fit for our application.
  */
 
-@TeleOp(name = "StarterBot2Teleop", group = "StarterBot2")
+@TeleOp(name = "StarterBotStraferChassis", group = "StarterBot2")
 //@Disabled
 public class StarterBot2Teleop extends OpMode {
 
-    MechanumDriveMechs board = new MechanumDriveMechs();
+    MechanumDriveLauncherMechs board = new MechanumDriveLauncherMechs();
     final double FEED_TIME_SECONDS = 0.31; //The feeder servos run this long when a shot is requested.
     final double STOP_SPEED = 0.0; //We send this power to the servos when we want them to stop.
     final double FULL_SPEED = 0.51;
@@ -83,9 +84,9 @@ public class StarterBot2Teleop extends OpMode {
     // Declare OpMode members.
 //    private DcMotor leftDrive = null;
 //    private DcMotor rightDrive = null;
-    private DcMotorEx launcher = null;
-    private CRServo leftFeeder = null;
-    private CRServo rightFeeder = null;
+//    private DcMotorEx launcher = null;
+//    private CRServo leftFeeder = null;
+//    private CRServo rightFeeder = null;
 
     ElapsedTime feederTimer = new ElapsedTime();
 
@@ -115,10 +116,10 @@ public class StarterBot2Teleop extends OpMode {
     private LaunchState launchState;
 
     // Setup a variable for each drive wheel to save power level for telemetry
-    double frontLeftPower;
-    double frontRightPower;
-    double backLeftPower;
-    double backRightPower;
+//    double frontLeftPower;
+//    double frontRightPower;
+//    double backLeftPower;
+//    double backRightPower;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -136,9 +137,9 @@ public class StarterBot2Teleop extends OpMode {
 //        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
         board.init(hardwareMap);
 
-        launcher = hardwareMap.get(DcMotorEx.class, "launcher");
-        leftFeeder = hardwareMap.get(CRServo.class, "left_feeder");
-        rightFeeder = hardwareMap.get(CRServo.class, "right_feeder");
+//        launcher = hardwareMap.get(DcMotorEx.class, "launcher");
+//        leftFeeder = hardwareMap.get(CRServo.class, "left_feeder");
+//        rightFeeder = hardwareMap.get(CRServo.class, "right_feeder");
 
         /*
          * To drive forward, most robots need the motor on one side to be reversed,
@@ -157,7 +158,7 @@ public class StarterBot2Teleop extends OpMode {
          * into the port right beside the motor itself. And that the motors polarity is consistent
          * through any wiring.
          */
-        launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        board.launcher.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         /*
          * Setting zeroPowerBehavior to BRAKE enables a "brake mode". This causes the motor to
@@ -166,21 +167,21 @@ public class StarterBot2Teleop extends OpMode {
          */
 //        leftDrive.setZeroPowerBehavior(FLOAT);
 //        rightDrive.setZeroPowerBehavior(FLOAT);
-        launcher.setZeroPowerBehavior(BRAKE);
+        board.launcher.setZeroPowerBehavior(BRAKE);
 
         /*
          * set Feeders to an initial value to initialize the servo controller
          */
-        leftFeeder.setPower(STOP_SPEED);
-        rightFeeder.setPower(STOP_SPEED);
+        board.leftFeeder.setPower(STOP_SPEED);
+        board.rightFeeder.setPower(STOP_SPEED);
 
-        launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
+        board.launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
 
         /*
          * Much like our drivetrain motors, we set the left feeder servo to reverse so that they
          * both work to feed the ball into the robot.
          */
-        leftFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
+        board.leftFeeder.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*
          * Tell the driver that initialization is complete.
@@ -231,9 +232,9 @@ public class StarterBot2Teleop extends OpMode {
         // If you press the left bumper, you get a drive from the point of view of the robot
         // (much like driving an RC vehicle)
         if (gamepad1.left_bumper) {
-            drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            board.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         } else {
-            driveFieldRelative(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            board.driveFieldRelative(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
         }
 
         /*
@@ -241,9 +242,9 @@ public class StarterBot2Teleop extends OpMode {
          * queuing a shot.
          */
         if (gamepad1.y) {
-            launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
+            board.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
         } else if (gamepad1.b) { // stop flywheel
-            launcher.setVelocity(STOP_SPEED);
+            board.launcher.setVelocity(STOP_SPEED);
         }
 
         /*
@@ -255,9 +256,9 @@ public class StarterBot2Teleop extends OpMode {
          * Show the state and motor powers
          */
         telemetry.addData("State", launchState);
-        telemetry.addData("Front Motors", "left (%.2f), right (%.2f)", frontLeftPower, frontRightPower);
-        telemetry.addData("Back Motors", "left (%.2f), right (%.2f)", backLeftPower, backRightPower);
-        telemetry.addData("motorSpeed", launcher.getVelocity());
+        telemetry.addData("Front Motors", "left (%.2f), right (%.2f)", board.frontLeftDrive.getPower(), board.frontRightDrive.getPower());
+        telemetry.addData("Back Motors", "left (%.2f), right (%.2f)", board.backLeftDrive.getPower(), board.backRightDrive.getPower());
+        telemetry.addData("motorSpeed", board.launcher.getVelocity());
 
     }
 
@@ -266,50 +267,6 @@ public class StarterBot2Teleop extends OpMode {
      */
     @Override
     public void stop() {
-    }
-
-    public void drive(double forward, double right, double rotate) {
-        // This calculates the power needed for each wheel based on the amount of forward,
-        // strafe right, and rotate
-        frontLeftPower = forward + right + rotate;
-        frontRightPower = forward - right - rotate;
-        backRightPower = forward + right - rotate;
-        backLeftPower = forward - right + rotate;
-
-        double maxPower = 1.0;
-        double maxSpeed = 1.0;  // make this slower for outreaches
-
-        // This is needed to make sure we don't pass > 1.0 to any wheel
-        // It allows us to keep all of the motors in proportion to what they should
-        // be and not get clipped
-        maxPower = Math.max(maxPower, Math.abs(frontLeftPower));
-        maxPower = Math.max(maxPower, Math.abs(frontRightPower));
-        maxPower = Math.max(maxPower, Math.abs(backRightPower));
-        maxPower = Math.max(maxPower, Math.abs(backLeftPower));
-
-        // We multiply by maxSpeed so that it can be set lower for outreaches
-        // When a young child is driving the robot, we may not want to allow full
-        // speed.
-        board.FrontLeftSpeed(maxSpeed * (frontLeftPower / maxPower));
-        board.FrontRightSpeed(maxSpeed * (frontRightPower / maxPower));
-        board.BackLeftSpeed(maxSpeed * (backLeftPower / maxPower));
-        board.BackRightSpeed(maxSpeed * (backRightPower / maxPower));
-    }
-
-    private void driveFieldRelative(double forward, double right, double rotate) {
-        // First, convert direction being asked to drive to polar coordinates
-        double theta = Math.atan2(forward, right);
-        double r = Math.hypot(right, forward);
-
-        // Second, rotate angle by the angle the robot is pointing
-        theta = AngleUnit.normalizeRadians(theta - board.getimuYaw());
-
-        // Third, convert back to cartesian
-        double newForward = r * Math.sin(theta);
-        double newRight = r * Math.cos(theta);
-
-        // Finally, call the drive method with robot relative forward and right amounts
-        drive(newForward, newRight, rotate);
     }
 
 //    void arcadeDrive(double forward, double rotate) {
@@ -331,22 +288,22 @@ public class StarterBot2Teleop extends OpMode {
                 }
                 break;
             case SPIN_UP:
-                launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
-                if (launcher.getVelocity() > LAUNCHER_MIN_VELOCITY) {
+                board.launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
+                if (board.launcher.getVelocity() > LAUNCHER_MIN_VELOCITY) {
                     launchState = LaunchState.LAUNCH;
                 }
                 break;
             case LAUNCH:
-                leftFeeder.setPower(FULL_SPEED);
-                rightFeeder.setPower(FULL_SPEED);
+                board.leftFeeder.setPower(FULL_SPEED);
+                board.rightFeeder.setPower(FULL_SPEED);
                 feederTimer.reset();
                 launchState = LaunchState.LAUNCHING;
                 break;
             case LAUNCHING:
                 if (feederTimer.seconds() > FEED_TIME_SECONDS) {
                     launchState = LaunchState.IDLE;
-                    leftFeeder.setPower(STOP_SPEED);
-                    rightFeeder.setPower(STOP_SPEED);
+                    board.leftFeeder.setPower(STOP_SPEED);
+                    board.rightFeeder.setPower(STOP_SPEED);
                 }
                 break;
         }
