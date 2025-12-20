@@ -19,10 +19,10 @@ public class PedroTestAuto extends OpMode {
 
     private int pathState;
 
-    private final Pose startPose = new Pose(10, 72, Math.toRadians(90)); // Start Pose of our robot.
-    private final Pose scorePose = new Pose(122.5, 125.5, Math.toRadians(45)); // Scoring Pose of our robot. It is facing the goal at a 135 degree angle.
-    private final Pose pickup1Pose = new Pose(9.1, 14.4, Math.toRadians(-46)); // Highest (First Set) of Artifacts from the Spike Mark.
-    private final Pose pickup2Pose = new Pose(124, 16.5, -0.96); // Middle (Second Set) of Artifacts from the Spike Mark.
+    private final Pose startPose = new Pose(72, 10, Math.toRadians(90)); // Start Pose of our robot.
+    private final Pose scorePose = new Pose(125.5, 122.5, Math.toRadians(45)); // Scoring Pose of our robot. It is facing the goal at a 135 degree angle.
+    private final Pose pickup1Pose = new Pose(14.1, 9.1, Math.toRadians(-46)); // Highest (First Set) of Artifacts from the Spike Mark.
+    private final Pose pickup2Pose = new Pose(16.5, 124, -0.96); // Middle (Second Set) of Artifacts from the Spike Mark.
     private final Pose pickup3Pose = new Pose(72, 72, Math.toRadians(0)); // Lowest (Third Set) of Artifacts from the Spike Mark.
 
     private Path scorePreload;
