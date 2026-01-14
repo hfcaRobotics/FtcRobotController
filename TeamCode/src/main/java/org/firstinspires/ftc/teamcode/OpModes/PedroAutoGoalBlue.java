@@ -18,8 +18,6 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
-import com.pedropathing.paths.PathChain;
-import com.pedropathing.util.Timer;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -39,9 +37,9 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
  * main robot "loop," continuously checking for conditions that allow us to move to the next step.
  */
 
-@Autonomous(name = "Roaring Auto Goal")
+@Autonomous(name = "Roaring Auto Goal Blue", group="AutoBot")
 //@Disabled
-public class PedroAutoGoal extends OpMode
+public class PedroAutoGoalBlue extends OpMode
 {
 
     final double FEED_TIME = 0.31; //The feeder servos run this long when a shot is requested.
@@ -147,14 +145,14 @@ public class PedroAutoGoal extends OpMode
 
     private Follower follower;
 
-    private final Pose RedScore = new Pose(126.8, 124.9, Math.toRadians(42)); // Start Pose of our robot.
+   // private final Pose RedScore = new Pose(126.8, 124.9, Math.toRadians(42)); // Start Pose of our robot.
     private final Pose BlueScore = new Pose(27.8, 127.8, Math.toRadians(138)); // Scoring Pose of our robot. It is facing the goal at a 135 degree angle.
-    private final Pose RedLoad = new Pose(36.8, 11.6, Math.toRadians(180)); // Highest (First Set) of Artifacts from the Spike Mark.
+ //   private final Pose RedLoad = new Pose(36.8, 11.6, Math.toRadians(180)); // Highest (First Set) of Artifacts from the Spike Mark.
     private final Pose BlueLoad = new Pose(107.2, 11.6, 0); // Middle (Second Set) of Artifacts from the Spike Mark.
     private final Pose center = new Pose(72, 72, Math.toRadians(0)); // Lowest (Third Set) of Artifacts from the Spike Mark.
 
     private Path BlueMove;
-    private PathChain RedMove;
+  //  private PathChain RedMove;
 
 
     public void buildPaths() {
@@ -162,10 +160,10 @@ public class PedroAutoGoal extends OpMode
         BlueMove = new Path(new BezierLine(BlueScore, BlueLoad));
         BlueMove.setLinearHeadingInterpolation(BlueScore.getHeading(), BlueLoad.getHeading());
 
-        RedMove = follower.pathBuilder()
-                .addPath(new BezierLine(RedScore, RedLoad))
-                .setLinearHeadingInterpolation(RedScore.getHeading(), RedScore.getHeading())
-                .build();
+    //    RedMove = follower.pathBuilder()
+     //           .addPath(new BezierLine(RedScore, RedLoad))
+       //         .setLinearHeadingInterpolation(RedScore.getHeading(), RedScore.getHeading())
+         //       .build();
     }
 
     /*
@@ -243,17 +241,17 @@ public class PedroAutoGoal extends OpMode
         /*
          * Here we allow the driver to select which alliance we are on using the gamepad.
          */
-        if (gamepad1.b) {
-            alliance = Alliance.RED;
-            follower.setStartingPose(RedScore);
-        } else if (gamepad1.x) {
-            alliance = Alliance.BLUE;
-            follower.setStartingPose(BlueScore);
-        }
+  //      if (gamepad1.b) {
+    //        alliance = Alliance.RED;
+      //      follower.setStartingPose(RedScore);
+        //} else if (gamepad1.x) {
+          //  alliance = Alliance.BLUE;
+            //follower.setStartingPose(BlueScore);
+       // }
 
-        telemetry.addData("Press X", "for BLUE");
-        telemetry.addData("Press B", "for RED");
-        telemetry.addData("Selected Alliance", alliance);
+  //      telemetry.addData("Press X", "for BLUE");
+    //    telemetry.addData("Press B", "for RED");
+      //  telemetry.addData("Selected Alliance", alliance);
     }
 
     /*
@@ -318,11 +316,11 @@ public class PedroAutoGoal extends OpMode
                 break;
 
             case PEDRO_DRIVE:
-                if (alliance==Alliance.RED){
-                    follower.followPath(RedMove);
-                } else{
+           //     if (alliance==Alliance.RED){
+           //         follower.followPath(RedMove);
+             //   } else{
                     follower.followPath(BlueMove);
-                }
+               // }
                 autonomousState = AutonomousState.COMPLETE;
                 break;
         }
