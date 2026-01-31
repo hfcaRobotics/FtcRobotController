@@ -148,7 +148,7 @@ public class PedroAutoGoalBlue extends OpMode
    // private final Pose RedScore = new Pose(126.8, 124.9, Math.toRadians(42)); // Start Pose of our robot.
     private final Pose BlueScore = new Pose(27.8, 127.8, Math.toRadians(138)); // Scoring Pose of our robot. It is facing the goal at a 135 degree angle.
  //   private final Pose RedLoad = new Pose(36.8, 11.6, Math.toRadians(180)); // Highest (First Set) of Artifacts from the Spike Mark.
-    private final Pose BlueLoad = new Pose(107.2, 11.6, 0); // Middle (Second Set) of Artifacts from the Spike Mark.
+    private final Pose BlueLoad = new Pose(27.8, 100, 0); // Middle (Second Set) of Artifacts from the Spike Mark.
     private final Pose center = new Pose(72, 72, Math.toRadians(0)); // Lowest (Third Set) of Artifacts from the Spike Mark.
 
     private Path BlueMove;
