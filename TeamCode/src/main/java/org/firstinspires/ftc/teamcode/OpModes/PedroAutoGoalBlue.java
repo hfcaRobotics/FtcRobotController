@@ -51,7 +51,7 @@ public class PedroAutoGoalBlue extends OpMode
      * at. The minimum velocity is a threshold for determining when to fire.
      */
     final double LAUNCHER_TARGET_VELOCITY = 1050;
-    final double LAUNCHER_MIN_VELOCITY = 1000;
+    final double LAUNCHER_MIN_VELOCITY = 950;
 
     /*
      * The number of seconds that we wait between each of our 3 shots from the launcher. This
@@ -209,7 +209,7 @@ public class PedroAutoGoalBlue extends OpMode
          * Here we set the aforementioned PID coefficients. You shouldn't have to do this for any
          * other motors on this robot.
          */
-        launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,new PIDFCoefficients(250,10,0,10));
+        launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,new PIDFCoefficients(200,10,0,10));
 
         /*
          * Much like our drivetrain motors, we set the left feeder servo to reverse so that they

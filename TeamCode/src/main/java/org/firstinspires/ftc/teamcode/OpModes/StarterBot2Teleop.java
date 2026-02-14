@@ -79,7 +79,7 @@ public class StarterBot2Teleop extends OpMode {
      * at. The minimum velocity is a threshold for determining when to fire.
      */
     final double LAUNCHER_TARGET_VELOCITY = 1050;
-    final double LAUNCHER_MIN_VELOCITY = 1000;
+    final double LAUNCHER_MIN_VELOCITY = 950;
 
     // Declare OpMode members.
 //    private DcMotor leftDrive = null;
@@ -175,7 +175,7 @@ public class StarterBot2Teleop extends OpMode {
         board.leftFeeder.setPower(STOP_SPEED);
         board.rightFeeder.setPower(STOP_SPEED);
 
-        board.launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(250, 10, 0, 10));
+        board.launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(200, 10, 0, 10));
 
         /*
          * Much like our drivetrain motors, we set the left feeder servo to reverse so that they
