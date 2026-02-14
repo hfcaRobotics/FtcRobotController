@@ -175,7 +175,7 @@ public class StarterBot2Teleop extends OpMode {
         board.leftFeeder.setPower(STOP_SPEED);
         board.rightFeeder.setPower(STOP_SPEED);
 
-        board.launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
+        board.launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(250, 10, 0, 10));
 
         /*
          * Much like our drivetrain motors, we set the left feeder servo to reverse so that they

@@ -205,7 +205,7 @@ public class PedroAutoGoalRed extends OpMode
          * Here we set the aforementioned PID coefficients. You shouldn't have to do this for any
          * other motors on this robot.
          */
-        launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,new PIDFCoefficients(300,0,0,10));
+        launcher.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER,new PIDFCoefficients(250,10,0,10));
 
         /*
          * Much like our drivetrain motors, we set the left feeder servo to reverse so that they
