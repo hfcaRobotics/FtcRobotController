@@ -50,8 +50,8 @@ public class PedroAutoGoalBlue extends OpMode
      * velocity. Here we are setting the target and minimum velocity that the launcher should run
      * at. The minimum velocity is a threshold for determining when to fire.
      */
-    final double LAUNCHER_TARGET_VELOCITY = 1125;
-    final double LAUNCHER_MIN_VELOCITY = 1075;
+    final double LAUNCHER_TARGET_VELOCITY = 1050;
+    final double LAUNCHER_MIN_VELOCITY = 1000;
 
     /*
      * The number of seconds that we wait between each of our 3 shots from the launcher. This
