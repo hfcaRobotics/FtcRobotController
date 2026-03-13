@@ -33,20 +33,15 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
-import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.FLOAT;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.mechanism.MechanumDriveLauncherMechs;
-import org.firstinspires.ftc.teamcode.mechanism.MechanumDriveMechs;
 
 /*
  * This file includes a teleop (driver-controlled) file for the goBILDA® StarterBot for the
@@ -63,14 +58,14 @@ import org.firstinspires.ftc.teamcode.mechanism.MechanumDriveMechs;
  * we will also need to adjust the "PIDF" coefficients with some that are a better fit for our application.
  */
 
-@TeleOp(name = "StarterBotStraferChassis", group = "StarterBot2")
+@TeleOp(name = "StarterBotStraferChassis_Feed_Test", group = "StarterBot2")
 //@Disabled
-public class StarterBot2Teleop extends OpMode {
+public class StarterBot2Teleop_Feed_Test extends OpMode {
 
     MechanumDriveLauncherMechs board = new MechanumDriveLauncherMechs();
     final double FEED_TIME_SECONDS = 0.40; //The feeder servos run this long when a shot is requested.
     final double STOP_SPEED = 0.0; //We send this power to the servos when we want them to stop.
-    final double FULL_SPEED = 1;
+    final double FULL_SPEED = 0.51;
 
     /*
      * When we control our launcher motor, we are using encoders. These allow the control system
